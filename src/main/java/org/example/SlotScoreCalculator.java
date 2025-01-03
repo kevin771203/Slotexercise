@@ -21,7 +21,7 @@ public class SlotScoreCalculator {
             Set<String> distinctSymbols = wheels.stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
 
             if (distinctSymbols.size() == 1) {
-                odd = 40;
+                odd = 10;
                 break;
             }
         }
