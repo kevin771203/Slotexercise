@@ -20,31 +20,36 @@ public class SlotScoreCalculator {
     }
 
     private int getOdd() {
-        // # lines
-        int sumOfSameLines1 = 0;
+        int Lines = getLines();
+
+        return getOdd(Lines);
+    }
+
+    private int getOdd(int lines) {
+        int odd;
+        if (lines == 0) {
+            odd = 0;
+        } else if (lines == 1) {
+            odd = 10;
+        } else if (lines == 2) {
+            odd = 40;
+        } else {
+            throw new RuntimeException("TDB");
+        }
+        return odd;
+    }
+
+    private int getLines() {
+        int sumOfSameLines = 0;
         for (int i =0; i<3; i++) {
 
             int finalI = i;
             Set<String> distinctSymbols = wheels.stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
 
             if (distinctSymbols.size() == 1) {
-                sumOfSameLines1 ++;
+                sumOfSameLines++;
             }
         }
-        int sumOfSameLines = sumOfSameLines1;
-
-        //get odds
-        int odd1;
-        if (sumOfSameLines == 0) {
-            odd1 = 0;
-        } else if (sumOfSameLines == 1) {
-            odd1 = 10;
-        } else if (sumOfSameLines == 2) {
-            odd1 = 40;
-        } else {
-            throw new RuntimeException("TDB");
-        }
-        int odd = odd1;
-        return odd;
+        return sumOfSameLines;
     }
 }
