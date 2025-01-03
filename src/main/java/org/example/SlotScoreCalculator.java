@@ -14,27 +14,37 @@ public class SlotScoreCalculator {
 
     public int calculate(int bet) {
 
-        int odd = 0;
-        int sumOfSameLines = 0;
+        int odd = getOdd();
+
+        return odd * bet;
+    }
+
+    private int getOdd() {
+        // # lines
+        int sumOfSameLines1 = 0;
         for (int i =0; i<3; i++) {
 
             int finalI = i;
             Set<String> distinctSymbols = wheels.stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
 
             if (distinctSymbols.size() == 1) {
-                sumOfSameLines ++;
+                sumOfSameLines1 ++;
             }
         }
+        int sumOfSameLines = sumOfSameLines1;
+
+        //get odds
+        int odd1;
         if (sumOfSameLines == 0) {
-            odd = 0;
+            odd1 = 0;
         } else if (sumOfSameLines == 1) {
-            odd = 10;
+            odd1 = 10;
         } else if (sumOfSameLines == 2) {
-            odd= 40;
+            odd1 = 40;
         } else {
             throw new RuntimeException("TDB");
         }
-
-        return odd * bet;
+        int odd = odd1;
+        return odd;
     }
 }
