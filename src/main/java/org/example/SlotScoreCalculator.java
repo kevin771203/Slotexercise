@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SlotScoreCalculator {
@@ -26,18 +25,19 @@ public class SlotScoreCalculator {
     }
 
     private int getOdd(int lines) {
-        int odd;
-        if (lines == 0) {
-            odd = 0;
-        } else if (lines == 1) {
-            odd = 10;
-        } else if (lines == 2) {
-            odd = 40;
-        } else if (lines == 3){
-            odd = 100;
-        }else {
-            throw new RuntimeException("TDB");
+
+        Map<Integer, Integer> odds = Map.ofEntries(
+                new AbstractMap.SimpleEntry<>(0,0),
+                new AbstractMap.SimpleEntry<>(1,10),
+                new AbstractMap.SimpleEntry<>(2,40),
+                new AbstractMap.SimpleEntry<>(3,100)
+        );
+        Integer odd = odds.get(lines);
+
+        if (Objects.isNull(odd)) {
+            throw new RuntimeException("Unsupported lines");
         }
+
         return odd;
     }
 
