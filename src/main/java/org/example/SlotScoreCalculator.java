@@ -15,15 +15,24 @@ public class SlotScoreCalculator {
     public int calculate(int bet) {
 
         int odd = 0;
+        int sumOfSameLines = 0;
         for (int i =0; i<3; i++) {
 
             int finalI = i;
             Set<String> distinctSymbols = wheels.stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
 
             if (distinctSymbols.size() == 1) {
-                odd = 10;
-                break;
+                sumOfSameLines ++;
             }
+        }
+        if (sumOfSameLines == 0) {
+            odd = 0;
+        } else if (sumOfSameLines == 1) {
+            odd = 10;
+        } else if (sumOfSameLines == 2) {
+            odd= 40;
+        } else {
+            throw new RuntimeException("TDB");
         }
 
         return odd * bet;

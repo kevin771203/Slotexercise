@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class SlotScoreCalculatorTest {
-    /*@Test
+    @Test
     void two_lines() {
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 List.of(
@@ -21,7 +21,7 @@ class SlotScoreCalculatorTest {
         int win = sut.calculate(10);
 
         Assertions.assertThat(win).isEqualTo(400);
-    }*/
+    }
 
     @Test
     void one_line() {
