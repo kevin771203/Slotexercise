@@ -13,6 +13,15 @@ public class SlotScoreCalculator {
 
     public int calculate(int bet) {
 
+        Random random = new Random();
+
+        for (List<String> wheel : wheels) {
+            int index = random.nextInt(wheels.size());
+            wheel.subList(index, wheels.size() + index);
+        }
+        
+        // ---------------
+
         int odd = getOdd();
 
         return odd * bet;
