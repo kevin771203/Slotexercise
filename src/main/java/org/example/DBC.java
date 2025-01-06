@@ -6,7 +6,7 @@ public class DBC {
 
     public static void checkPreCondition(Supplier<Boolean> preCondition, String message) {
         if (!preCondition.get()) {
-            throw new RuntimeException(message);
+            throw new PreConditionViolateException(message);
         }
     }
 }
