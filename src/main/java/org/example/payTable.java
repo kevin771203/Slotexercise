@@ -15,23 +15,23 @@ public class payTable {
     }
 
     public int getOdd(List<List<String>> screen) {
-        int Lines = getLines(screen);
+        int Lines = getLines(new Screen(screen));
 
         return getOdd(Lines);
     }
 
-    private int getLines(List<List<String>> screen) {
-        int sumOfSameLines = 0;
+    private int getLines(Screen screen) {
+        int Lines = 0;
         for (int i = 0; i < 3; i++) {
 
             int finalI = i;
-            Set<String> distinctSymbols = screen.stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
+            Set<String> distinctSymbols = screen.rawScreen().stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
 
             if (distinctSymbols.size() == 1) {
-                sumOfSameLines++;
+                Lines++;
             }
         }
-        return sumOfSameLines;
+        return Lines;
     }
 
     private int getOdd(int lines) {
