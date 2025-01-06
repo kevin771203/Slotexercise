@@ -71,7 +71,7 @@ class SlotScoreCalculatorTest {
 
     @Test
     void lose() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1);
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 List.of(

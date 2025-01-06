@@ -27,7 +27,15 @@ public class SlotScoreCalculator {
         List<List<String>> screen = new ArrayList<>();
         for (List<String> wheel : wheels) {
             int nextPosition = random.nextInt(wheel.size());
-            List<String> column = wheel.subList(nextPosition, nextPosition + 3);
+
+            List dummywheel = new ArrayList();
+
+            dummywheel.addAll(wheel);
+            dummywheel.addAll(wheel);
+
+            List<String> column = dummywheel.subList(nextPosition, nextPosition + 3);
+
+
             screen.add(column);
         }
 
