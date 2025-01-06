@@ -14,18 +14,36 @@ public class SlotScoreCalculator {
             new AbstractMap.SimpleEntry<>(3, 100)
     );
 
-    public SlotScoreCalculator(List<List<String>> wheels) {
+    private final Random random;
+
+    public SlotScoreCalculator(List<List<String>> wheels, Random random) {
         this.wheels = wheels;
+        this.random = random;
     }
 
     public int calculate(int bet) {
 
-        List<List<String>> screen = wheels;
+
+        List<List<String>> screen = new ArrayList<>();
+        for (List<String> wheel : wheels) {
+            int nextPosition = random.nextInt(wheel.size());
+            List<String> column = wheel.subList(nextPosition, nextPosition + 3);
+            screen.add(column);
+        }
+
+
+
+
       // ---------------
 
         int odd = getOdd(screen);
 
         return odd * bet;
+    }
+
+    private Random getRandom() {
+        Random random = new Random();
+        return random;
     }
 
     private int getOdd(List<List<String>> screen) {
@@ -35,7 +53,6 @@ public class SlotScoreCalculator {
     }
 
     private int getOdd(int lines) {
-
 
         Integer odd = odds.get(lines);
 

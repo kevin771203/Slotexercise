@@ -2,13 +2,20 @@ package org.example;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
+import java.util.Random;
 
 class SlotScoreCalculatorTest {
 
+    private final Random random = Mockito.mock(Random.class);
+
     @Test
     void three_lines() {
+
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
+
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 List.of(
                         List.of("A", "2", "3"),
@@ -16,7 +23,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3")
-                )
+                ), random
         );
 
         int win = sut.calculate(10);
@@ -26,6 +33,8 @@ class SlotScoreCalculatorTest {
 
     @Test
     void two_lines() {
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
+
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 List.of(
                         List.of("A", "2", "3"),
@@ -33,7 +42,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "4")
-                )
+                ), random
         );
 
         int win = sut.calculate(10);
@@ -43,6 +52,8 @@ class SlotScoreCalculatorTest {
 
     @Test
     void one_line() {
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
+
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 List.of(
                         List.of("A", "2", "3"),
@@ -50,7 +61,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "3", "4")
-                )
+                ), random
         );
 
         int win = sut.calculate(10);
@@ -60,6 +71,8 @@ class SlotScoreCalculatorTest {
 
     @Test
     void lose() {
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
+
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 List.of(
                         List.of("A", "2", "3"),
@@ -67,7 +80,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("2", "3", "4")
-                )
+                ), random
         );
 
         int win = sut.calculate(10);
