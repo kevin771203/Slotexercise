@@ -8,11 +8,12 @@ public class SlotScoreCalculator {
     private final List<List<String>> reels;
 
     private final Random random;
-    private final org.example.payTable payTable = new payTable();
+    private final org.example.payTable payTable;
 
-    public SlotScoreCalculator(List<List<String>> reels, Random random) {
+    public SlotScoreCalculator(List<List<String>> reels, Random random, payTable payTable) {
         this.reels = reels;
         this.random = random;
+        this.payTable = payTable;
     }
 
     public int calculate(int bet) {

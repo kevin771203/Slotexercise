@@ -23,7 +23,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3")
-                ), random
+                ), random, new payTable()
         );
 
         int win = sut.calculate(10);
@@ -42,7 +42,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "4")
-                ), random
+                ), random, new payTable()
         );
 
         int win = sut.calculate(10);
@@ -61,7 +61,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "3", "4")
-                ), random
+                ), random, new payTable()
         );
 
         int win = sut.calculate(10);
@@ -80,7 +80,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("2", "3", "4")
-                ), random
+                ), random, new payTable()
         );
 
         int win = sut.calculate(10);
