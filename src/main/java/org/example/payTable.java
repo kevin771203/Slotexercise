@@ -21,7 +21,7 @@ public class payTable {
 
     private Integer getOdd(int lines) {
 
-        DBC.checkPreCondition(() -> odds.containsKey(lines));
+        DBC.checkPreCondition(() -> odds.containsKey(lines), "Unsupported lines");
 
         return odds.get(lines);
     }
