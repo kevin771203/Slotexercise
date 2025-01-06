@@ -2,10 +2,11 @@ package org.example;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SlotScoreCalculator {
 
-    private final List<List<String>> wheels;
+    private final List<List<String>> reels;
 
     private final Map<Integer, Integer> odds = Map.ofEntries(
             new AbstractMap.SimpleEntry<>(0, 0),
@@ -16,8 +17,8 @@ public class SlotScoreCalculator {
 
     private final Random random;
 
-    public SlotScoreCalculator(List<List<String>> wheels, Random random) {
-        this.wheels = wheels;
+    public SlotScoreCalculator(List<List<String>> reels, Random random) {
+        this.reels = reels;
         this.random = random;
     }
 
@@ -25,15 +26,15 @@ public class SlotScoreCalculator {
 
 
         List<List<String>> screen = new ArrayList<>();
-        for (List<String> wheel : wheels) {
-            int nextPosition = random.nextInt(wheel.size());
+        for (List<String> reel : reels) {
+            int nextPosition = random.nextInt(reel.size());
 
-            List dummywheel = new ArrayList();
 
-            dummywheel.addAll(wheel);
-            dummywheel.addAll(wheel);
 
-            List<String> column = dummywheel.subList(nextPosition, nextPosition + 3);
+            List<String> column = Stream.concat(reel.stream(), reel.stream()).toList().subList(
+                    nextPosition, nextPosition + 3
+            );
+
 
 
             screen.add(column);
