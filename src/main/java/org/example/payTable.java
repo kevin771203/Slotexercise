@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class payTable {
     private final Map<Integer, Integer> odds = Map.ofEntries(
@@ -14,24 +13,10 @@ public class payTable {
     public payTable() {
     }
 
-    public int getOdd(List<List<String>> screen) {
-        int Lines = getLines(new Screen(screen));
+    public int getOdd(List<List<String>> rawScreen) {
+        int Lines = new Screen(rawScreen).countStraightLines();
 
         return getOdd(Lines);
-    }
-
-    private int getLines(Screen screen) {
-        int Lines = 0;
-        for (int i = 0; i < 3; i++) {
-
-            int finalI = i;
-            Set<String> distinctSymbols = screen.rawScreen().stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
-
-            if (distinctSymbols.size() == 1) {
-                Lines++;
-            }
-        }
-        return Lines;
     }
 
     private int getOdd(int lines) {
