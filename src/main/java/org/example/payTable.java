@@ -10,6 +10,7 @@ public class payTable {
             new AbstractMap.SimpleEntry<Integer, Integer>(2, 40),
             new AbstractMap.SimpleEntry<Integer, Integer>(3, 100)
     );
+    private final org.example.DBC DBC = new DBC();
 
     public int getOdd(Screen screen) {
 
@@ -20,16 +21,9 @@ public class payTable {
 
     private Integer getOdd(int lines) {
 
-        Supplier<Boolean> preCondition = () -> odds.containsKey(lines);
-        checkPreCondition((Supplier<Boolean>) preCondition);
+        DBC.checkPreCondition(() -> odds.containsKey(lines));
 
         return odds.get(lines);
-    }
-
-    private void checkPreCondition(Supplier<Boolean> preCondition) {
-        if (!(boolean) preCondition.get()) {
-            throw new RuntimeException("Unsupported lines");
-        }
     }
 
 
