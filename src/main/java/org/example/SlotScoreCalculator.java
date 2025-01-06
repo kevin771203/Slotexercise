@@ -18,18 +18,7 @@ public class SlotScoreCalculator {
 
     public int calculate(int bet) {
 
-        List<List<String>> screen = getScreen();
-
-
-        // ---------------
-
-        int odd = payTable.getOdd(new Screen(screen));
-
-        return odd * bet;
-    }
-
-    private List<List<String>> getScreen() {
-        List<List<String>> screen = reels.stream().map(
+        List<List<String>> rawScreen = reels.stream().map(
                 reel -> {
                     int nextPosition = random.nextInt(reel.size());
 
@@ -39,10 +28,13 @@ public class SlotScoreCalculator {
                     );
                 }
         ).toList();
-        return screen;
+
+        Screen screen = new Screen(rawScreen);
+
+        int odd = payTable.getOdd(screen);
+
+        return odd * bet;
     }
-
-
 
 
 }
