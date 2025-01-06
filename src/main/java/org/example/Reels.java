@@ -5,8 +5,8 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 
-public record Reels(List<List<String>> rawReels) {
-    Screen reelsToScreen(Random random) {
+public record Reels(List<List<String>> rawReels, Random random) {
+    Screen reelsToScreen() {
         List<List<String>> rawScreen = rawReels().stream().map(
                 reel -> {
                     int nextPosition = random.nextInt(reel.size());
