@@ -29,12 +29,9 @@ public class SlotScoreCalculator {
                     int nextPosition = random.nextInt(reel.size());
 
 
-                    List<String> column = Stream.concat(reel.stream(), reel.stream()).toList().subList(
+                    return Stream.concat(reel.stream(), reel.stream()).toList().subList(
                             nextPosition, nextPosition + 3
                     );
-
-
-                    return column;
                 }
         ).toList();
 
@@ -46,11 +43,6 @@ public class SlotScoreCalculator {
         int odd = getOdd(screen);
 
         return odd * bet;
-    }
-
-    private Random getRandom() {
-        Random random = new Random();
-        return random;
     }
 
     private int getOdd(List<List<String>> screen) {
