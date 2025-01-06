@@ -17,13 +17,13 @@ class SlotScoreCalculatorTest {
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
-                List.of(
+                new payTable(), new Reels(List.of(
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3")
-                ), random, new payTable()
+                ), random)
         );
 
         int win = sut.calculate(10);
@@ -36,13 +36,13 @@ class SlotScoreCalculatorTest {
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
-                List.of(
+                new payTable(), new Reels(List.of(
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "4")
-                ), random, new payTable()
+                ), random)
         );
 
         int win = sut.calculate(10);
@@ -55,13 +55,13 @@ class SlotScoreCalculatorTest {
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
-                List.of(
+                new payTable(), new Reels(List.of(
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "3", "4")
-                ), random, new payTable()
+                ), random)
         );
 
         int win = sut.calculate(10);
@@ -74,13 +74,13 @@ class SlotScoreCalculatorTest {
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1);
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
-                List.of(
+                new payTable(), new Reels(List.of(
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("2", "3", "4")
-                ), random, new payTable()
+                ), random)
         );
 
         int win = sut.calculate(10);

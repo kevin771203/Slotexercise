@@ -1,17 +1,13 @@
 package org.example;
 
-import java.util.*;
-
 public class SlotScoreCalculator {
 
-    private final Random random;
     private final org.example.payTable payTable;
     private final Reels reels;
 
-    public SlotScoreCalculator(List<List<String>> rawReels, Random random, payTable payTable) {
-        this.random = random;
+    public SlotScoreCalculator(payTable payTable, Reels reels1) {
         this.payTable = payTable;
-        this.reels = new Reels(rawReels, random);
+        this.reels = reels1;
     }
 
     public int calculate(int bet) {
