@@ -24,21 +24,19 @@ public class SlotScoreCalculator {
 
     public int calculate(int bet) {
 
-
-        List<List<String>> screen = new ArrayList<>();
-        for (List<String> reel : reels) {
-            int nextPosition = random.nextInt(reel.size());
-
+        List<List<String>> screen = reels.stream().map(
+                reel -> {
+                    int nextPosition = random.nextInt(reel.size());
 
 
-            List<String> column = Stream.concat(reel.stream(), reel.stream()).toList().subList(
-                    nextPosition, nextPosition + 3
-            );
+                    List<String> column = Stream.concat(reel.stream(), reel.stream()).toList().subList(
+                            nextPosition, nextPosition + 3
+                    );
 
 
-
-            screen.add(column);
-        }
+                    return column;
+                }
+        ).toList();
 
 
 
