@@ -23,7 +23,7 @@ public class SlotScoreCalculator {
 
         // ---------------
 
-        int odd = payTable.getOdd(screen);
+        int odd = payTable.getOdd(new Screen(screen));
 
         return odd * bet;
     }

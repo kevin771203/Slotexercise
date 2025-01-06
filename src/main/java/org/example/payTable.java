@@ -10,18 +10,12 @@ public class payTable {
             new AbstractMap.SimpleEntry<Integer, Integer>(3, 100)
     );
 
-    public payTable() {
-    }
 
-    public int getOdd(List<List<String>> rawScreen) {
-        int Lines = new Screen(rawScreen).countStraightLines();
+    public int getOdd(Screen screen) {
 
-        return getOdd(Lines);
-    }
+        int Lines = screen.countStraightLines();
 
-    private int getOdd(int lines) {
-
-        Integer odd = odds.get(lines);
+        Integer odd = odds.get(Lines);
 
         if (Objects.isNull(odd)) {
             throw new RuntimeException("Unsupported lines");
@@ -29,4 +23,6 @@ public class payTable {
 
         return odd;
     }
+
+
 }
