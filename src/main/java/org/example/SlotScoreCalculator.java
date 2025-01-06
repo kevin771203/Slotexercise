@@ -20,22 +20,16 @@ public class SlotScoreCalculator {
 
     public int calculate(int bet) {
 
-//        Random random = new Random();
-//
-//        for (List<String> wheel : wheels) {
-//            int index = random.nextInt(wheels.size());
-//            wheel.subList(index, wheels.size() + index);
-//        }
-//
-//        // ---------------
+        List<List<String>> screen = wheels;
+      // ---------------
 
-        int odd = getOdd();
+        int odd = getOdd(screen);
 
         return odd * bet;
     }
 
-    private int getOdd() {
-        int Lines = getLines();
+    private int getOdd(List<List<String>> screen) {
+        int Lines = getLines(screen);
 
         return getOdd(Lines);
     }
@@ -52,12 +46,12 @@ public class SlotScoreCalculator {
         return odd;
     }
 
-    private int getLines() {
+    private int getLines(List<List<String>> screen) {
         int sumOfSameLines = 0;
         for (int i =0; i<3; i++) {
 
             int finalI = i;
-            Set<String> distinctSymbols = wheels.stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
+            Set<String> distinctSymbols = screen.stream().map(wheel -> wheel.get(finalI)).collect(Collectors.toSet());
 
             if (distinctSymbols.size() == 1) {
                 sumOfSameLines++;
