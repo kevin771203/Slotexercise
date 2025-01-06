@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 public class payTable {
     private final Map<Integer, Integer> odds = Map.ofEntries(
@@ -19,11 +20,16 @@ public class payTable {
 
     private Integer getOdd(int lines) {
 
-        if (!odds.containsKey(lines)) {
-            throw new RuntimeException("Unsupported lines");
-        }
+        Supplier<Boolean> preCondition = () -> odds.containsKey(lines);
+        checkPreCondition((Supplier<Boolean>) preCondition);
 
         return odds.get(lines);
+    }
+
+    private void checkPreCondition(Supplier<Boolean> preCondition) {
+        if (!(boolean) preCondition.get()) {
+            throw new RuntimeException("Unsupported lines");
+        }
     }
 
 
