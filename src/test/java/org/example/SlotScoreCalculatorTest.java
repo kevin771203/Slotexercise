@@ -71,7 +71,7 @@ class SlotScoreCalculatorTest {
 
     @Test
     void lose() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1);
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1,1, 1, 1, 2);
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 new payTable(), new Reels(List.of(
@@ -79,7 +79,7 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
-                        List.of("2", "3", "4")
+                        List.of("A", "2", "3")
                 ), random)
         );
 

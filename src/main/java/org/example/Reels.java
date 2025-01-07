@@ -9,7 +9,7 @@ public record Reels(List<List<String>> rawReels, Random random) {
     Screen reelsToScreen() {
         List<List<String>> rawScreen = rawReels().stream().map(
                 reel -> {
-                    int nextPosition = random.nextInt(reel.size());
+                    int nextPosition = getNextInt(reel.size());
 
 
                     return Stream.concat(reel.stream(), reel.stream()).toList().subList(
@@ -19,5 +19,9 @@ public record Reels(List<List<String>> rawReels, Random random) {
         ).toList();
 
         return new Screen(rawScreen);
+    }
+
+    private int getNextInt(int bound) {
+        return random.nextInt(bound);
     }
 }
