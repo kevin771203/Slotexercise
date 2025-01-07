@@ -83,8 +83,18 @@ class SlotScoreCalculatorTest {
                 ), new NativeRandomNumberGenerator(random))
         );
 
-        int win = sut.calculate(10).getValue();
-
-        Assertions.assertThat(win).isEqualTo(0);
+        SpinResult spinResult = sut.calculate(10);
+        Assertions.assertThat(spinResult.getValue()).isEqualTo(0);
+        Assertions.assertThat(spinResult.getScreen()).isEqualTo(
+                new Screen(
+                        List.of(
+                                List.of("2", "3", "A"),
+                                List.of("2", "3", "A"),
+                                List.of("2", "3", "A"),
+                                List.of("2", "3", "A"),
+                                List.of("3", "A", "2")
+                        )
+                )
+        );
     }
 }

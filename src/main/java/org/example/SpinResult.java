@@ -8,4 +8,5 @@ import lombok.Data;
 public class SpinResult {
     private final int value;
 
+    private final Screen screen;
 }
