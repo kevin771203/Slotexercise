@@ -70,17 +70,20 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void lose() {
+    void spin_and_lose() {
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1,1, 1, 1, 2);
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
-                new payTable(), new Reels(List.of(
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3")
-                ), new NativeRandomNumberGenerator(random))
+                new payTable(),
+                new Reels(
+                        List.of(
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3")
+                        ), new NativeRandomNumberGenerator(random)
+                )
         );
 
         SpinResult spinResult = sut.calculate(10);
@@ -96,5 +99,36 @@ class SlotScoreCalculatorTest {
                         )
                 )
         );
+    }
+
+    @Test
+    void init() {
+
+        SlotScoreCalculator sut = new SlotScoreCalculator(
+                new payTable(),
+                new Reels(
+                        List.of(
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3")
+                        ), new NativeRandomNumberGenerator(random)
+                )
+        );
+
+        Screen screen = sut.getScreen();
+        Assertions.assertThat(screen).isEqualTo(
+                new Screen(
+                        List.of(
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3")
+                        )
+                )
+        );
+
     }
 }
