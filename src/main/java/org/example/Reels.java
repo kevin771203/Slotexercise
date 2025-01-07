@@ -7,12 +7,9 @@ import java.util.List;
 public final class Reels {
 
     private final List<Reel> reelList = new ArrayList<>();
-    private final RandomNumberGenerator randomNumberGenerator;
 
 
     public Reels(List<List<String>> rawReels, RandomNumberGenerator randomNumberGenerator) {
-
-        this.randomNumberGenerator = randomNumberGenerator;
 
         for (List<String> rawReel : rawReels) {
             Reel reel = new Reel(rawReel, randomNumberGenerator);
