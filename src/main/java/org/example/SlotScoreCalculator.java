@@ -10,13 +10,15 @@ public class SlotScoreCalculator {
         this.reels = reels;
     }
 
-    public int calculate(int bet) {
+    public SpinResult calculate(int bet) {
 
         Screen screen = reels.reelsToScreen();
 
         int odd = payTable.getOdd(screen);
 
-        return odd * bet;
+        int win = odd * bet;
+
+        return new SpinResult(win);
     }
 
 

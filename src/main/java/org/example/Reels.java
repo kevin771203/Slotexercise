@@ -5,13 +5,14 @@ import java.util.stream.Stream;
 
 
 public final class Reels {
+
     private final List<List<String>> rawReels;
     private final RandomNumberGenerator randomNumberGenerator;
+
     public Reels(List<List<String>> rawReels, RandomNumberGenerator randomNumberGenerator) {
         this.rawReels = rawReels;
         this.randomNumberGenerator = randomNumberGenerator;
     }
-
 
     Screen reelsToScreen() {
         List<List<String>> rawScreen = rawReels().stream().map(
