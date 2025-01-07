@@ -1,19 +1,17 @@
 package org.example;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Stream;
 
 
 public final class Reels {
     private final List<List<String>> rawReels;
-
-    public Reels(List<List<String>> rawReels, Random random) {
+    private final RandomNumberGenerator randomNumberGenerator;
+    public Reels(List<List<String>> rawReels, RandomNumberGenerator randomNumberGenerator) {
         this.rawReels = rawReels;
-        randomNumberGenerator = new RandomNumberGenerator(random);
+        this.randomNumberGenerator = randomNumberGenerator;
     }
 
-    private final RandomNumberGenerator randomNumberGenerator;
 
     Screen reelsToScreen() {
         List<List<String>> rawScreen = rawReels().stream().map(
@@ -31,10 +29,6 @@ public final class Reels {
 
     List<List<String>> rawReels() {
         return rawReels;
-    }
-
-    private int nextInt(int bound) {
-        return randomNumberGenerator.nextInt(bound);
     }
 
 
