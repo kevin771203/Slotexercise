@@ -6,16 +6,18 @@ import java.util.stream.Stream;
 public class Reel {
 
     private final List<String> grids;
+    private final RandomNumberGenerator randomNumberGenerator;
     private int nextPosition;
 
-    public Reel(List<String> grids) {
+    public Reel(List<String> grids, RandomNumberGenerator randomNumberGenerator) {
         this.grids = grids;
+        this.randomNumberGenerator = randomNumberGenerator;
     }
 
-    public void roll(RandomNumberGenerator randomNumberGenerator) {
+    public void roll() {
 
         //command
-        nextPosition = randomNumberGenerator.nextInt(grids.size());
+        nextPosition = this.randomNumberGenerator.nextInt(grids.size());
     }
 
     public List<String> getScreenColumn(int columnSize) {

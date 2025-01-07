@@ -15,7 +15,7 @@ public final class Reels {
         this.randomNumberGenerator = randomNumberGenerator;
 
         for (List<String> rawReel : rawReels) {
-            Reel reel = new Reel(rawReel);
+            Reel reel = new Reel(rawReel, randomNumberGenerator);
             reelList.add(reel);
         }
 
@@ -24,7 +24,7 @@ public final class Reels {
     public void spin() {
 
         for (Reel reel : reelList) {
-            reel.roll(randomNumberGenerator);
+            reel.roll();
         }
 
     }
