@@ -39,11 +39,9 @@ public final class Reels {
                 }
         ).toList();
 
-        Screen screen1 = new Screen(rawScreen);
+        this.screen = new Screen(rawScreen);
 
-        this.screen =screen1;
-        
-        return screen1;
+        return screen;
     }
 
     List<List<String>> rawReels() {
