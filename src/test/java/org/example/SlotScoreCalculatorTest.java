@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Random;
 
 class SlotScoreCalculatorTest {
-
+    private final CyclicRNG randomNumberGenerator = new CyclicRNG();
     private final Random random = Mockito.mock(Random.class);
+    private SpinResult spinResult;
 
     @Test
     void three_lines() {
@@ -18,15 +19,15 @@ class SlotScoreCalculatorTest {
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 new payTable(), new Reels(List.of(
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3")
-                ), new NativeRandomNumberGenerator(random))
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
+        ), new NativeRandomNumberGenerator(random))
         );
 
-        int win = sut.calculate(10).getValue();
+        int win = sut.spinBase(10).getValue();
 
         Assertions.assertThat(win).isEqualTo(1_000);
     }
@@ -37,15 +38,15 @@ class SlotScoreCalculatorTest {
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 new payTable(), new Reels(List.of(
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "4")
-                ), new NativeRandomNumberGenerator(random))
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "4")
+        ), new NativeRandomNumberGenerator(random))
         );
 
-        int win = sut.calculate(10).getValue();
+        int win = sut.spinBase(10).getValue();
 
         Assertions.assertThat(win).isEqualTo(400);
     }
@@ -56,15 +57,15 @@ class SlotScoreCalculatorTest {
 
         SlotScoreCalculator sut = new SlotScoreCalculator(
                 new payTable(), new Reels(List.of(
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "3", "4")
-                ), new NativeRandomNumberGenerator(random))
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "3", "4")
+        ), new NativeRandomNumberGenerator(random))
         );
 
-        int win = sut.calculate(10).getValue();
+        int win = sut.spinBase(10).getValue();
 
         Assertions.assertThat(win).isEqualTo(100);
     }
@@ -86,7 +87,7 @@ class SlotScoreCalculatorTest {
                 )
         );
 
-        SpinResult spinResult = sut.calculate(10);
+        spinResult = sut.spinBase(10);
         Assertions.assertThat(spinResult.getValue()).isEqualTo(0);
         Assertions.assertThat(spinResult.getScreen()).isEqualTo(
                 new Screen(
@@ -143,4 +144,36 @@ class SlotScoreCalculatorTest {
         );
 
     }
+
+    @Test
+    void free_game() {
+
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
+
+        SlotScoreCalculator sut = new SlotScoreCalculator(
+                new payTable(), new Reels(List.of(
+                List.of("A", "A", "3"),
+                List.of("A", "A", "3"),
+                List.of("A", "A", "3"),
+                List.of("A", "A", "3"),
+                List.of("A", "A", "4")
+        ), new NativeRandomNumberGenerator(random))
+        );
+
+        Reels freeGameReels = new Reels(
+                List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3")
+                ), new NativeRandomNumberGenerator(random)
+        );
+        sut.setFreeGameReels(freeGameReels);
+
+        int win = sut.spinBase(10).getValue();
+
+        spinResult = sut.spinFree();
+
+        Assertions.assertThat(spinResult.getValue()).isEqualTo(5_000);
+    }
+
 }
