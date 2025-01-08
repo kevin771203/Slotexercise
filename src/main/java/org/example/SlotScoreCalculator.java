@@ -6,14 +6,14 @@ public class SlotScoreCalculator {
 
     private final org.example.payTable baseGamePayTable;
     private final org.example.freeGamePayTable freeGamePayTable;
-    private final Reels reels;
+    private final Reels baseGameReels;
     private Reels freeGameReels;
     private int freeGameCount;
     private int freeGameBet;
 
-    public SlotScoreCalculator(payTable baseGamePayTable, Reels reels, Reels freeGameReels, freeGamePayTable freeGamePayTable) {
+    public SlotScoreCalculator(Reels baseGameReels, payTable baseGamePayTable, Reels freeGameReels, freeGamePayTable freeGamePayTable) {
         this.baseGamePayTable = baseGamePayTable;
-        this.reels = reels;
+        this.baseGameReels = baseGameReels;
         this.freeGameReels = freeGameReels;
         this.freeGamePayTable = freeGamePayTable;
     }
@@ -25,9 +25,9 @@ public class SlotScoreCalculator {
             throw new WrongMethodException("wrong mode:FREE_GAME");
         }
 
-        reels.spin();
+        baseGameReels.spin();
 
-        Screen screen = reels.getScreen();
+        Screen screen = baseGameReels.getScreen();
 
         int odd = baseGamePayTable.getOdd(screen);
 
@@ -57,7 +57,7 @@ public class SlotScoreCalculator {
 
     public Screen getScreen() {
         if (freeGameCount <= 0) {
-            return reels.getScreen();
+            return baseGameReels.getScreen();
         } else {
             return freeGameReels.getScreen();
         }

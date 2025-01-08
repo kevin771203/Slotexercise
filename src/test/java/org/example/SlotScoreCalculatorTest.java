@@ -283,9 +283,8 @@ class SlotScoreCalculatorTest {
     private void given_sut(List<List<String>> baseGameRawReels, List<List<String>> freeGameRawReels) {
 
         sut = new SlotScoreCalculator(
-                new payTable(),
                 new Reels(
-                        baseGameRawReels, randomNumberGenerator),
+                        baseGameRawReels, randomNumberGenerator), new payTable(),
                 new Reels(
                         freeGameRawReels, randomNumberGenerator
                 ), new freeGamePayTable()
