@@ -1,16 +1,15 @@
 package org.example;
 
-import java.util.List;
-
 public class SlotScoreCalculator {
 
     private final org.example.payTable payTable;
     private final Reels reels;
     private Reels freeGameReels;
 
-    public SlotScoreCalculator(payTable payTable, Reels reels) {
+    public SlotScoreCalculator(payTable payTable, Reels reels, Reels freeGameReels) {
         this.payTable = payTable;
         this.reels = reels;
+        this.freeGameReels = freeGameReels;
     }
 
     public SpinResult spinBase(int bet) {

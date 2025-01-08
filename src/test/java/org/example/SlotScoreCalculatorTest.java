@@ -91,10 +91,19 @@ class SlotScoreCalculatorTest {
     }
 
     private void given_sut(List<List<String>> rawReels) {
+        Reels freeGameReels = new Reels(
+                List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3")
+
+                ), randomNumberGenerator
+        );
         sut = new SlotScoreCalculator(
                 new payTable(),
                 new Reels(
-                        rawReels, randomNumberGenerator)
+                        rawReels, randomNumberGenerator),
+                freeGameReels
         );
     }
 
@@ -215,18 +224,14 @@ class SlotScoreCalculatorTest {
     @Test
     void init() {
 
-        SlotScoreCalculator sut = new SlotScoreCalculator(
-                new payTable(),
-                new Reels(
-                        List.of(
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3")
-                        ), new NativeRandomNumberGenerator(random)
-                )
-        );
+        given_sut(List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
+
+        ));
 
         Screen screen = sut.getScreen();
         Assertions.assertThat(screen).isEqualTo(
