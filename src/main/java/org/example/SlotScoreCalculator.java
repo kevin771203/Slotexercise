@@ -4,14 +4,14 @@ import java.util.List;
 
 public class SlotScoreCalculator {
 
-    private final org.example.payTable payTable;
+    private final org.example.payTable baseGamePayTable;
     private final Reels reels;
     private Reels freeGameReels;
     private int freeGameCount;
     private int freeGameBet;
 
-    public SlotScoreCalculator(payTable payTable, Reels reels, Reels freeGameReels) {
-        this.payTable = payTable;
+    public SlotScoreCalculator(payTable baseGamePayTable, Reels reels, Reels freeGameReels) {
+        this.baseGamePayTable = baseGamePayTable;
         this.reels = reels;
         this.freeGameReels = freeGameReels;
     }
@@ -27,7 +27,7 @@ public class SlotScoreCalculator {
 
         Screen screen = reels.getScreen();
 
-        int odd = payTable.getOdd(screen);
+        int odd = baseGamePayTable.getOdd(screen);
 
         int win = odd * bet;
 
@@ -74,7 +74,7 @@ public class SlotScoreCalculator {
 
         Screen screen = freeGameReels.getScreen();
 
-        int odd = getOddFreeGame(screen);
+        int odd = freeGamePayTable.getOddFreeGame(screen);
 
 
         int win = odd * freeGameBet;
@@ -89,17 +89,7 @@ public class SlotScoreCalculator {
         freeGameCount--;
     }
 
-    private static int getOddFreeGame(Screen screen) {
-        int odd = 0;
-
-        int lines = screen.countStraightLines();
-        if(lines == 3) {
-            odd = 500;
-        } else if(lines == 2) {
-            odd = 300;
-        } else if(lines == 1) {
-            odd = 100;
-        }
-        return odd;
-    }
+//    private int getOddFreeGame(Screen screen) {
+//        return freeGamePayTable.getOddFreeGame(screen);
+//    }
 }
