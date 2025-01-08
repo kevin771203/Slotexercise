@@ -5,15 +5,17 @@ import java.util.List;
 public class SlotScoreCalculator {
 
     private final org.example.payTable baseGamePayTable;
+    private final org.example.freeGamePayTable freeGamePayTable;
     private final Reels reels;
     private Reels freeGameReels;
     private int freeGameCount;
     private int freeGameBet;
 
-    public SlotScoreCalculator(payTable baseGamePayTable, Reels reels, Reels freeGameReels) {
+    public SlotScoreCalculator(payTable baseGamePayTable, Reels reels, Reels freeGameReels, freeGamePayTable freeGamePayTable) {
         this.baseGamePayTable = baseGamePayTable;
         this.reels = reels;
         this.freeGameReels = freeGameReels;
+        this.freeGamePayTable = freeGamePayTable;
     }
 
     public SpinResult spinBase(int bet) throws WrongMethodException {

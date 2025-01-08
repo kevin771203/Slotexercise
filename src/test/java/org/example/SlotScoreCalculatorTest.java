@@ -288,7 +288,7 @@ class SlotScoreCalculatorTest {
                         baseGameRawReels, randomNumberGenerator),
                 new Reels(
                         freeGameRawReels, randomNumberGenerator
-                )
+                ), new freeGamePayTable()
         );
     }
 
