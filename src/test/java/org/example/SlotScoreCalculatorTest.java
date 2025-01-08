@@ -2,43 +2,34 @@ package org.example;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
-import java.util.Random;
 
 class SlotScoreCalculatorTest {
     private final CyclicRNG randomNumberGenerator = new CyclicRNG();
-    private final Random random = Mockito.mock(Random.class);
     private SlotScoreCalculator sut;
     private SpinResult spinResult;
 
     @Test
     void free_game() {
 
-        //Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
         assume_RNG_generates(List.of(0));
 
-        given_sut(List.of(
-                List.of("A", "A", "3"),
-                List.of("A", "A", "3"),
-                List.of("A", "A", "3"),
-                List.of("A", "A", "3"),
-                List.of("A", "A", "4")
-
-        ));
-
-        Reels freeGameReels = new Reels(
+        given_sut(
                 List.of(
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "4")
+                ), List.of(
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3"),
                         List.of("A", "2", "3")
+                ));
 
-                ), randomNumberGenerator
-        );
-        sut.setFreeGameReels(freeGameReels);
 
-        when_spin(10);
+        when_spin_base(10);
         when_spin_free();
 
         then_returned_SpinResult_should_be(
@@ -72,7 +63,7 @@ class SlotScoreCalculatorTest {
 
         ));
 
-        when_spin(10);
+        when_spin_base(10);
 
         then_returned_SpinResult_should_be(
                 1_000,
@@ -90,26 +81,28 @@ class SlotScoreCalculatorTest {
         randomNumberGenerator.resetExpectedValues(expecteds);
     }
 
-    private void given_sut(List<List<String>> rawReels) {
-        Reels freeGameReels = new Reels(
-                List.of(
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3")
+    private void given_sut(List<List<String>> baseGameRawReels) {
+        given_sut(baseGameRawReels, List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
 
-                ), randomNumberGenerator
-        );
+        ));
+    }
+
+    private void given_sut(List<List<String>> baseGameRawReels, List<List<String>> freeGameRawReels) {
+
         sut = new SlotScoreCalculator(
                 new payTable(),
                 new Reels(
-                        rawReels, randomNumberGenerator),
-                freeGameReels
+                        baseGameRawReels, randomNumberGenerator),
+                new Reels(
+                        freeGameRawReels, randomNumberGenerator
+                )
         );
     }
 
-    private void when_spin(int bet) {
-        spinResult = sut.spinBase(bet);
-    }
+    private void when_spin_base(int bet) {spinResult = sut.spinBase(bet);}
 
     private void then_returned_SpinResult_should_be(int win, List<List<String>> rawScreen) {
         Assertions.assertThat(spinResult.getWin()).isEqualTo(win);
@@ -135,7 +128,7 @@ class SlotScoreCalculatorTest {
 
         ));
 
-        when_spin(10);
+        when_spin_base(10);
 
         then_returned_SpinResult_should_be(
                 400,
@@ -163,7 +156,7 @@ class SlotScoreCalculatorTest {
 
         ));
 
-        when_spin(10);
+        when_spin_base(10);
 
         then_returned_SpinResult_should_be(
                 100,
@@ -191,7 +184,7 @@ class SlotScoreCalculatorTest {
 
         ));
 
-        when_spin(10);
+        when_spin_base(10);
 
         then_returned_SpinResult_should_be(
                 0,
