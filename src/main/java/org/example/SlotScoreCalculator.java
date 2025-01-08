@@ -76,7 +76,7 @@ public class SlotScoreCalculator {
 
         Screen screen = freeGameReels.getScreen();
 
-        int odd = freeGamePayTable.getOddFreeGame(screen);
+        int odd = freeGamePayTable.getOdd(screen);
 
 
         int win = odd * freeGameBet;

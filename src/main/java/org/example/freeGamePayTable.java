@@ -2,7 +2,7 @@ package org.example;
 
 public class freeGamePayTable {
 
-    public static int getOddFreeGame(Screen screen) {
+    public static int getOdd(Screen screen) {
         int odd = 0;
 
         int lines = screen.countStraightLines();
