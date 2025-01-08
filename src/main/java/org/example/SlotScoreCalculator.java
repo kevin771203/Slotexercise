@@ -41,6 +41,16 @@ public class SlotScoreCalculator {
 
         Screen screen = freeGameReels.getScreen();
 
+        int odd = getOddFreeGame(screen);
+
+
+        int win = odd * 10;
+
+        return new SpinResult(win,screen);
+
+    }
+
+    private static int getOddFreeGame(Screen screen) {
         int odd = 0;
 
         int lines = screen.countStraightLines();
@@ -51,11 +61,6 @@ public class SlotScoreCalculator {
         } else if(lines == 1) {
             odd = 100;
         }
-
-
-        int win = odd * 10;
-
-        return new SpinResult(win,screen);
-
+        return odd;
     }
 }
