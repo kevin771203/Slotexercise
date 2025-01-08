@@ -56,6 +56,9 @@ public class SlotScoreCalculator {
 
     public SpinResult spinFree() {
 
+        if (freeGameCount <= 0) {
+            throw new RuntimeException("wrong mode:BASE_GAME");
+        }
 
         freeGameReels.spin();
 
@@ -65,6 +68,8 @@ public class SlotScoreCalculator {
 
 
         int win = odd * 10;
+
+        freeGameCount--;
 
         return new SpinResult(win,screen);
 
