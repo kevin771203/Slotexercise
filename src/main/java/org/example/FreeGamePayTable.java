@@ -1,8 +1,8 @@
 package org.example;
 
-public class freeGamePayTable {
+public class FreeGamePayTable implements PayTable{
 
-    public static int getOdd(Screen screen) {
+    public int getOdd(Screen screen) {
         int odd = 0;
 
         int lines = screen.countStraightLines();

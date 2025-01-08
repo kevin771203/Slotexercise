@@ -1,9 +1,8 @@
 package org.example;
 
 import java.util.*;
-import java.util.function.Supplier;
 
-public class payTable {
+public class BaseGamePayTable implements PayTable {
     private final Map<Integer, Integer> odds = Map.ofEntries(
             new AbstractMap.SimpleEntry<Integer, Integer>(0, 0),
             new AbstractMap.SimpleEntry<Integer, Integer>(1, 10),
@@ -12,6 +11,7 @@ public class payTable {
     );
     private final org.example.DBC DBC = new DBC();
 
+    @Override
     public int getOdd(Screen screen) {
 
         int Lines = screen.countStraightLines();

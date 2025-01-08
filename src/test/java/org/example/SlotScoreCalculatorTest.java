@@ -284,10 +284,10 @@ class SlotScoreCalculatorTest {
 
         sut = new SlotScoreCalculator(
                 new Reels(
-                        baseGameRawReels, randomNumberGenerator), new payTable(),
+                        baseGameRawReels, randomNumberGenerator), new BaseGamePayTable(),
                 new Reels(
                         freeGameRawReels, randomNumberGenerator
-                ), new freeGamePayTable()
+                ), new FreeGamePayTable()
         );
     }
 
