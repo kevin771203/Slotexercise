@@ -41,7 +41,15 @@ public class SlotScoreCalculator {
 
         Screen screen = freeGameReels.getScreen();
 
-        int odd = 500;
+        int odd = 0;
+
+        int lines = screen.countStraightLines();
+        if(lines == 3) {
+            odd = 500;
+        } else if(lines == 2) {
+            odd = 300;
+        }
+
 
         int win = odd * 10;
 
