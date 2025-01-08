@@ -1,6 +1,5 @@
 package org.example;
 
-import java.lang.invoke.WrongMethodTypeException;
 import java.util.List;
 
 public class SlotScoreCalculator {
@@ -9,6 +8,7 @@ public class SlotScoreCalculator {
     private final Reels reels;
     private Reels freeGameReels;
     private int freeGameCount;
+    private int freeGameBet;
 
     public SlotScoreCalculator(payTable payTable, Reels reels, Reels freeGameReels) {
         this.payTable = payTable;
@@ -22,7 +22,7 @@ public class SlotScoreCalculator {
         if (freeGameCount > 0) {
             throw new WrongMethodException("wrong mode:FREE_GAME");
         }
-        
+
         reels.spin();
 
         Screen screen = reels.getScreen();
@@ -31,12 +31,12 @@ public class SlotScoreCalculator {
 
         int win = odd * bet;
 
-        tryTriggerFreeGame(screen);
+        tryTriggerFreeGame(screen, bet);
 
         return new SpinResult(win,screen);
     }
 
-    private void tryTriggerFreeGame(Screen screen) {
+    private void tryTriggerFreeGame(Screen screen, int bet) {
         int count = 0;
         for (List<String> rawColumns : screen.rawScreen()) {
             for (String grid : rawColumns) {
@@ -48,6 +48,7 @@ public class SlotScoreCalculator {
 
         if (count >= 10) {
             freeGameCount +=3;
+            freeGameBet = bet;
         }
     }
 
@@ -76,7 +77,7 @@ public class SlotScoreCalculator {
         int odd = getOddFreeGame(screen);
 
 
-        int win = odd * 10;
+        int win = odd * freeGameBet;
 
         tryDeactiveFreeGame();
 
