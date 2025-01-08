@@ -47,6 +47,6 @@ public class SlotScoreCalculator {
         int win = odd * 10;
 
         return new SpinResult(win,screen);
-        
+
     }
 }

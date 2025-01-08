@@ -167,11 +167,12 @@ class SlotScoreCalculatorTest {
                         List.of("A", "2", "3")
                 ), new NativeRandomNumberGenerator(random)
         );
+
         sut.setFreeGameReels(freeGameReels);
 
         int win = sut.spinBase(10).getValue();
 
-        spinResult = sut.spinFree();
+        when_spin_free(sut);
 
         Assertions.assertThat(spinResult.getValue()).isEqualTo(5_000);
         Assertions.assertThat(spinResult.getScreen()).isEqualTo(
@@ -183,6 +184,10 @@ class SlotScoreCalculatorTest {
                         )
                 )
         );
+    }
+
+    private void when_spin_free(SlotScoreCalculator sut) {
+        spinResult = sut.spinFree();
     }
 
 }
