@@ -132,14 +132,6 @@ class SlotScoreCalculatorTest {
                         List.of("A", "3", "4")
                 )
         );
-//        then_returned_SpinResult_should_be(
-//                1_000,
-//                List.of(
-//                        List.of("A", "2", "3"),
-//                        List.of("A", "2", "3"),
-//                        List.of("A", "3", "4")
-//                )
-//        );
 
     }
 
