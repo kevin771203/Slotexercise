@@ -10,106 +10,204 @@ import java.util.Random;
 class SlotScoreCalculatorTest {
     private final CyclicRNG randomNumberGenerator = new CyclicRNG();
     private final Random random = Mockito.mock(Random.class);
+    private SlotScoreCalculator sut;
     private SpinResult spinResult;
+
+    @Test
+    void free_game() {
+
+        //Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
+        assume_RNG_generates(List.of(0));
+
+        given_sut(List.of(
+                List.of("A", "A", "3"),
+                List.of("A", "A", "3"),
+                List.of("A", "A", "3"),
+                List.of("A", "A", "3"),
+                List.of("A", "A", "4")
+
+        ));
+
+        Reels freeGameReels = new Reels(
+                List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3")
+
+                ), randomNumberGenerator
+        );
+        sut.setFreeGameReels(freeGameReels);
+
+        when_spin(10);
+        when_spin_free();
+
+        then_returned_SpinResult_should_be(
+                5_000,
+                List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3")
+                )
+        );
+
+    }
+
+    private void when_spin_free() {
+        spinResult = sut.spinFree();
+    }
+
 
     @Test
     void three_lines() {
 
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
 
-        SlotScoreCalculator sut = new SlotScoreCalculator(
-                new payTable(), new Reels(List.of(
+        assume_RNG_generates(List.of(0));
+
+        given_sut(List.of(
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3")
-        ), new NativeRandomNumberGenerator(random))
+
+        ));
+
+        when_spin(10);
+
+        then_returned_SpinResult_should_be(
+                1_000,
+                List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3")
+                )
         );
-
-        int win = sut.spinBase(10).getValue();
-
-        Assertions.assertThat(win).isEqualTo(1_000);
     }
+
+    private void assume_RNG_generates(List<Integer> expecteds) {
+        randomNumberGenerator.resetExpectedValues(expecteds);
+    }
+
+    private void given_sut(List<List<String>> rawReels) {
+        sut = new SlotScoreCalculator(
+                new payTable(),
+                new Reels(
+                        rawReels, randomNumberGenerator)
+        );
+    }
+
+    private void when_spin(int bet) {
+        spinResult = sut.spinBase(bet);
+    }
+
+    private void then_returned_SpinResult_should_be(int win, List<List<String>> rawScreen) {
+        Assertions.assertThat(spinResult.getWin()).isEqualTo(win);
+        Assertions.assertThat(spinResult.getScreen()).isEqualTo(
+                new Screen(
+                        rawScreen
+                )
+        );
+    }
+
 
     @Test
     void two_lines() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
 
-        SlotScoreCalculator sut = new SlotScoreCalculator(
-                new payTable(), new Reels(List.of(
+        assume_RNG_generates(List.of(0));
+
+        given_sut(List.of(
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "2", "4")
-        ), new NativeRandomNumberGenerator(random))
+
+        ));
+
+        when_spin(10);
+
+        then_returned_SpinResult_should_be(
+                400,
+                List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "4")
+                )
         );
-
-        int win = sut.spinBase(10).getValue();
-
-        Assertions.assertThat(win).isEqualTo(400);
     }
 
     @Test
     void one_line() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
 
-        SlotScoreCalculator sut = new SlotScoreCalculator(
-                new payTable(), new Reels(List.of(
+        assume_RNG_generates(List.of(0));
+
+        given_sut(List.of(
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3"),
                 List.of("A", "3", "4")
-        ), new NativeRandomNumberGenerator(random))
+
+        ));
+
+        when_spin(10);
+
+        then_returned_SpinResult_should_be(
+                100,
+                List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "3", "4")
+                )
         );
-
-        int win = sut.spinBase(10).getValue();
-
-        Assertions.assertThat(win).isEqualTo(100);
     }
 
     @Test
     void spin_and_lose() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1,1, 1, 1, 2);
 
-        SlotScoreCalculator sut = new SlotScoreCalculator(
-                new payTable(),
-                new Reels(
-                        List.of(
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3")
-                        ), new NativeRandomNumberGenerator(random)
-                )
-        );
+        assume_RNG_generates(List.of(1, 1, 1, 1, 2));
 
-        spinResult = sut.spinBase(10);
-        Assertions.assertThat(spinResult.getValue()).isEqualTo(0);
+        given_sut(List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
+
+        ));
+
+        when_spin(10);
+
+        then_returned_SpinResult_should_be(
+                0,
+                List.of(
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("3", "A", "2")
+                ));
+
+        when_get_screen_then_should_get(
+                List.of(
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("3", "A", "2")
+                ));
+    }
+
+    private void when_get_screen_then_should_get(List<List<String>> rawScreen) {
         Assertions.assertThat(spinResult.getScreen()).isEqualTo(
                 new Screen(
-                        List.of(
-                                List.of("2", "3", "A"),
-                                List.of("2", "3", "A"),
-                                List.of("2", "3", "A"),
-                                List.of("2", "3", "A"),
-                                List.of("3", "A", "2")
-                        )
-                )
-        );
-
-        Assertions.assertThat(sut.getScreen()).isEqualTo(
-                new Screen(
-                        List.of(
-                                List.of("2", "3", "A"),
-                                List.of("2", "3", "A"),
-                                List.of("2", "3", "A"),
-                                List.of("2", "3", "A"),
-                                List.of("3", "A", "2")
-                        )
+                        rawScreen
                 )
         );
     }
@@ -145,49 +243,5 @@ class SlotScoreCalculatorTest {
 
     }
 
-    @Test
-    void free_game() {
-
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
-
-        SlotScoreCalculator sut = new SlotScoreCalculator(
-                new payTable(), new Reels(List.of(
-                List.of("A", "A", "3"),
-                List.of("A", "A", "3"),
-                List.of("A", "A", "3"),
-                List.of("A", "A", "3"),
-                List.of("A", "A", "4")
-        ), new NativeRandomNumberGenerator(random))
-        );
-
-        Reels freeGameReels = new Reels(
-                List.of(
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3"),
-                        List.of("A", "2", "3")
-                ), new NativeRandomNumberGenerator(random)
-        );
-
-        sut.setFreeGameReels(freeGameReels);
-
-        int win = sut.spinBase(10).getValue();
-
-        when_spin_free(sut);
-
-        Assertions.assertThat(spinResult.getValue()).isEqualTo(5_000);
-        Assertions.assertThat(spinResult.getScreen()).isEqualTo(
-                new Screen(
-                        List.of(
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3")
-                        )
-                )
-        );
-    }
-
-    private void when_spin_free(SlotScoreCalculator sut) {
-        spinResult = sut.spinFree();
-    }
 
 }
