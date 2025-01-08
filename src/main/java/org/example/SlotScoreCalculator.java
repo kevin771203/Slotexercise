@@ -22,9 +22,7 @@ public class SlotScoreCalculator {
         if (freeGameCount > 0) {
             throw new WrongMethodException("wrong mode:FREE_GAME");
         }
-
-//        Checked Exception
-
+        
         reels.spin();
 
         Screen screen = reels.getScreen();
@@ -80,10 +78,14 @@ public class SlotScoreCalculator {
 
         int win = odd * 10;
 
-        freeGameCount--;
+        tryDeactiveFreeGame();
 
         return new SpinResult(win,screen);
 
+    }
+
+    private void tryDeactiveFreeGame() {
+        freeGameCount--;
     }
 
     private static int getOddFreeGame(Screen screen) {
