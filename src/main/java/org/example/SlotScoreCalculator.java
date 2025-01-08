@@ -1,5 +1,6 @@
 package org.example;
 
+import java.lang.invoke.WrongMethodTypeException;
 import java.util.List;
 
 public class SlotScoreCalculator {
@@ -15,12 +16,14 @@ public class SlotScoreCalculator {
         this.freeGameReels = freeGameReels;
     }
 
-    public SpinResult spinBase(int bet) {
+    public SpinResult spinBase(int bet) throws WrongMethodException {
 
 
         if (freeGameCount > 0) {
-            throw new RuntimeException("wrong mode:FREE_GAME");
+            throw new WrongMethodException("wrong mode:FREE_GAME");
         }
+
+//        Checked Exception
 
         reels.spin();
 

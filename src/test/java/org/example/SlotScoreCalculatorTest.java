@@ -12,7 +12,7 @@ class SlotScoreCalculatorTest {
 
 
     @Test
-    void back_to_base_game() {
+    void back_to_base_game() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -42,7 +42,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void free_game_3_times() {
+    void free_game_3_times() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -77,7 +77,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void cannot_play_base_game_in_free_game_mode() {
+    void cannot_play_base_game_in_free_game_mode() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -104,7 +104,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void get_screen_in_free_game() {
+    void get_screen_in_free_game() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -136,7 +136,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void free_game_1_lines() {
+    void free_game_1_lines() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -169,7 +169,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void free_game_2_lines() {
+    void free_game_2_lines() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -201,7 +201,7 @@ class SlotScoreCalculatorTest {
 
     }
     @Test
-    void free_game_3_lines() {
+    void free_game_3_lines() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -239,7 +239,7 @@ class SlotScoreCalculatorTest {
 
 
     @Test
-    void three_lines() {
+    void three_lines() throws WrongMethodException {
 
 
         assume_RNG_generates(List.of(0));
@@ -292,7 +292,9 @@ class SlotScoreCalculatorTest {
         );
     }
 
-    private void when_spin_base(int bet) {spinResult = sut.spinBase(bet);}
+    private void when_spin_base(int bet) throws WrongMethodException {
+        spinResult = sut.spinBase(bet);
+    }
 
     private void then_returned_SpinResult_should_be(int win, List<List<String>> rawScreen) {
         Assertions.assertThat(spinResult.getWin()).isEqualTo(win);
@@ -305,7 +307,7 @@ class SlotScoreCalculatorTest {
 
 
     @Test
-    void two_lines() {
+    void two_lines() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -333,7 +335,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void one_line() {
+    void one_line() throws WrongMethodException {
 
         assume_RNG_generates(List.of(0));
 
@@ -361,7 +363,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void spin_and_lose() {
+    void spin_and_lose() throws WrongMethodException {
 
         assume_RNG_generates(List.of(1, 1, 1, 1, 2));
 
