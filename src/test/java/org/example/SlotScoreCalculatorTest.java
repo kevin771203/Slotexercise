@@ -11,6 +11,33 @@ class SlotScoreCalculatorTest {
     private SpinResult spinResult;
 
     @Test
+    void cannot_play_base_game_in_free_game_mode() {
+
+        assume_RNG_generates(List.of(0));
+
+        given_sut(
+                List.of(
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "4")
+                ), List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "3", "4")
+                ));
+
+
+        when_spin_base(10);
+
+        Assertions.assertThatThrownBy(
+                () -> when_spin_base(10)
+        ).hasMessageContaining("wrong mode:FREE_GAME");
+
+    }
+
+    @Test
     void free_game_1_lines() {
 
         assume_RNG_generates(List.of(0));
@@ -42,6 +69,7 @@ class SlotScoreCalculatorTest {
         );
 
     }
+
     @Test
     void free_game_2_lines() {
 

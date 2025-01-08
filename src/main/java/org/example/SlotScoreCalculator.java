@@ -1,10 +1,13 @@
 package org.example;
 
+import java.util.List;
+
 public class SlotScoreCalculator {
 
     private final org.example.payTable payTable;
     private final Reels reels;
     private Reels freeGameReels;
+    private int freeGameCount;
 
     public SlotScoreCalculator(payTable payTable, Reels reels, Reels freeGameReels) {
         this.payTable = payTable;
@@ -14,6 +17,11 @@ public class SlotScoreCalculator {
 
     public SpinResult spinBase(int bet) {
 
+
+        if (freeGameCount > 0) {
+            throw new RuntimeException("wrong mode:FREE_GAME");
+        }
+
         reels.spin();
 
         Screen screen = reels.getScreen();
@@ -21,6 +29,18 @@ public class SlotScoreCalculator {
         int odd = payTable.getOdd(screen);
 
         int win = odd * bet;
+        int count = 0;
+        for (List<String> rawColumns : screen.rawScreen()) {
+            for (String grid : rawColumns) {
+                if(grid.equals("A")) {
+                    count++;
+                }
+            }
+        }
+
+        if (count >= 10) {
+            freeGameCount +=3;
+        }
 
         return new SpinResult(win,screen);
     }
