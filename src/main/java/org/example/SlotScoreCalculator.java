@@ -48,6 +48,8 @@ public class SlotScoreCalculator {
             odd = 500;
         } else if(lines == 2) {
             odd = 300;
+        } else if(lines == 1) {
+            odd = 100;
         }
 
 
