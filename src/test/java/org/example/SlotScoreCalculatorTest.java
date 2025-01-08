@@ -174,6 +174,15 @@ class SlotScoreCalculatorTest {
         spinResult = sut.spinFree();
 
         Assertions.assertThat(spinResult.getValue()).isEqualTo(5_000);
+        Assertions.assertThat(spinResult.getScreen()).isEqualTo(
+                new Screen(
+                        List.of(
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3"),
+                                List.of("A", "2", "3")
+                        )
+                )
+        );
     }
 
 }

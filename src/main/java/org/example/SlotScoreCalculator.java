@@ -38,16 +38,15 @@ public class SlotScoreCalculator {
     public SpinResult spinFree() {
 
 
+        freeGameReels.spin();
 
-        return new SpinResult(
-                5_000,
-                new Screen(
-                        List.of(
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3")
-                        )
-                )
-        );
+        Screen screen = freeGameReels.getScreen();
+
+        int odd = 500;
+
+        int win = odd * 10;
+
+        return new SpinResult(win,screen);
+        
     }
 }
