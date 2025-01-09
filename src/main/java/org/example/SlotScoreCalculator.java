@@ -77,4 +77,11 @@ public class SlotScoreCalculator {
 
     public boolean isFreeGame() {return freeGameCount > 0;}
 
+    public Memento toMemento() {
+        return null;
+    }
+
+    public void restore(Memento memento) {
+
+    }
 }

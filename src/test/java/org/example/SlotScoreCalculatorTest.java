@@ -365,6 +365,53 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
+    void base_game_recovery() throws WrongModeException {
+
+        assume_RNG_generates(List.of(1, 1, 1, 1, 2));
+
+        given_sut(List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
+
+        ), List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
+        ));
+
+        when_spin_base(10);
+
+        Memento memento = sut.toMemento();
+
+        given_sut(List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
+        ), List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
+        ));
+
+        sut.restore(memento);
+
+        when_get_screen_then_should_get(
+                List.of(
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("3", "A", "2")
+                )
+        );
+    }
+
+    @Test
     void spin_and_lose() throws WrongModeException {
 
         assume_RNG_generates(List.of(1, 1, 1, 1, 2));
@@ -376,6 +423,10 @@ class SlotScoreCalculatorTest {
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3")
 
+        ), List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
         ));
 
         when_spin_base(10);
@@ -401,7 +452,8 @@ class SlotScoreCalculatorTest {
     }
 
     private void when_get_screen_then_should_get(List<List<String>> rawScreen) {
-        Assertions.assertThat(spinResult.getScreen()).isEqualTo(
+        Screen screen = sut.getScreen();
+        Assertions.assertThat(screen).isEqualTo(
                 new Screen(
                         rawScreen
                 )
@@ -418,20 +470,21 @@ class SlotScoreCalculatorTest {
                 List.of("A", "2", "3"),
                 List.of("A", "2", "3")
 
+        ), List.of(
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3"),
+                List.of("A", "2", "3")
         ));
 
-        Screen screen = sut.getScreen();
-        Assertions.assertThat(screen).isEqualTo(
-                new Screen(
-                        List.of(
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3"),
-                                List.of("A", "2", "3")
-                        )
-                )
-        );
+
+        when_get_screen_then_should_get(
+                List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3")
+                ));
 
     }
 
