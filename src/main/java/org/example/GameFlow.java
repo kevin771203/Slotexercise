@@ -1,16 +1,21 @@
 package org.example;
 
 public class GameFlow {
-    public GameFlow() {
+    private final Reels reels;
+    private final PayTable payTable;
+
+    public GameFlow(Reels reels, PayTable payTable) {
+        this.reels = reels;
+        this.payTable = payTable;
     }
 
-    SpinResult runGameFlow(int bet, Reels reels, PayTable payTable) {
+    SpinResult runGameFlow(int bet) {
 
-        reels.spin();
+        this.reels.spin();
 
-        Screen screen = reels.getScreen();
+        Screen screen = this.reels.getScreen();
 
-        int odd = payTable.getOdd(screen);
+        int odd = this.payTable.getOdd(screen);
 
         int win = odd * bet;
 
