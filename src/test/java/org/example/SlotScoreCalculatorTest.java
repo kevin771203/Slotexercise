@@ -285,10 +285,12 @@ class SlotScoreCalculatorTest {
         final Reels baseGameReels = new Reels(
                 baseGameRawReels, randomNumberGenerator);
         final BaseGamePayTable baseGamePayTable = new BaseGamePayTable();
+        final Reels freeGameReels = new Reels(
+                freeGameRawReels, randomNumberGenerator
+        );
+        final FreeGamePayTable freeGamePayTable = new FreeGamePayTable();
         sut = new SlotScoreCalculator(
-                new Reels(
-                        freeGameRawReels, randomNumberGenerator
-                ), new FreeGamePayTable(), new GameFlow(baseGameReels, baseGamePayTable)
+                new GameFlow(baseGameReels, baseGamePayTable), new GameFlow(freeGameReels, freeGamePayTable)
         );
     }
 

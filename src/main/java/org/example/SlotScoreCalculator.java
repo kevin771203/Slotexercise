@@ -9,9 +9,9 @@ public class SlotScoreCalculator {
     private int freeGameCount;
     private int freeGameBet;
 
-    public SlotScoreCalculator(Reels freeGameReels, PayTable freeGamePayTable, GameFlow baseGameFlow) {
+    public SlotScoreCalculator(GameFlow baseGameFlow, GameFlow freeGameFlow) {
         this.baseGameFlow = baseGameFlow;
-        freeGameFlow =new GameFlow(freeGameReels, freeGamePayTable);
+        this.freeGameFlow = freeGameFlow;
     }
 
     public SpinResult spinBase(int bet) throws WrongMethodException {
