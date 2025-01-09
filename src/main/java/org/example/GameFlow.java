@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.List;
+
 public class GameFlow {
     private final Reels reels;
     private final PayTable payTable;
@@ -24,5 +26,16 @@ public class GameFlow {
 
     Screen getScreen() {
         return this.reels.getScreen();
+    }
+
+    public List<Integer> getPositions() {
+
+        return reels.getPositions();
+
+    }
+
+    public void restore(List<Integer> positions) {
+
+        reels.restore(positions);
     }
 }

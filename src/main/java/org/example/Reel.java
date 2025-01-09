@@ -24,4 +24,14 @@ public class Reel {
         return Stream.concat(grids.stream(), grids.stream()).toList()
                 .subList( nextPosition, nextPosition + columnSize);
     }
+
+    public int getNextPosition() {
+        return nextPosition;
+    }
+
+    public void setNextPosition(int newPosition) {
+
+        nextPosition = newPosition;
+    }
+
 }

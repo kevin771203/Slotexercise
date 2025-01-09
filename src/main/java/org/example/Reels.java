@@ -34,5 +34,18 @@ public final class Reels {
 
         return new Screen(rawScreen);
     }
+
+    public List<Integer> getPositions() {
+
+        return reelList.stream().map(Reel::getNextPosition).toList();
+    }
+
+    public void restore(List<Integer> positions) {
+        for (int i = 0; i < positions.size(); i++) {
+            Reel reel = reelList.get(i);
+
+            reel.setNextPosition(positions.get(i));
+        }
+    }
 }
 
