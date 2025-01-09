@@ -44,9 +44,7 @@ public class SlotScoreCalculator {
 
         return new SpinResult(win, screen);
     }
-
-    private record Result(Screen screen, int win) {
-    }
+    
     
     private void tryTriggerFreeGame(Screen screen, int bet) {
         int count = 0;
@@ -80,7 +78,7 @@ public class SlotScoreCalculator {
         if (freeGameCount <= 0) {
             throw new WrongMethodException("wrong mode:BASE_GAME");
         }
-        
+
 
         SpinResult spinResult = runGameFlow(freeGameBet, freeGameReels, freeGamePayTable);
 
