@@ -38,7 +38,7 @@ public class SlotScoreCalculator {
         }
 
         if (count >= 10) {
-            freeGameCount +=3;
+            freeGameCount += 3;
             freeGameBet = bet;
         }
     }
