@@ -4,21 +4,13 @@ import java.util.List;
 
 public class SlotScoreCalculator {
 
-    private final Reels baseGameReels;
-    private final PayTable baseGamePayTable;
-    private final Reels freeGameReels;
-    private final PayTable freeGamePayTable;
     private final GameFlow baseGameFlow;
     private final GameFlow freeGameFlow;
     private int freeGameCount;
     private int freeGameBet;
 
-    public SlotScoreCalculator(Reels baseGameReels, PayTable baseGamePayTable, Reels freeGameReels, PayTable freeGamePayTable) {
-        this.baseGameReels = baseGameReels;
-        this.baseGamePayTable = baseGamePayTable;
-        this.freeGameReels = freeGameReels;
-        this.freeGamePayTable = freeGamePayTable;
-        baseGameFlow = new GameFlow(baseGameReels, baseGamePayTable);
+    public SlotScoreCalculator(Reels freeGameReels, PayTable freeGamePayTable, GameFlow baseGameFlow) {
+        this.baseGameFlow = baseGameFlow;
         freeGameFlow =new GameFlow(freeGameReels, freeGamePayTable);
     }
 

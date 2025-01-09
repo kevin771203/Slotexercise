@@ -282,12 +282,13 @@ class SlotScoreCalculatorTest {
 
     private void given_sut(List<List<String>> baseGameRawReels, List<List<String>> freeGameRawReels) {
 
+        final Reels baseGameReels = new Reels(
+                baseGameRawReels, randomNumberGenerator);
+        final BaseGamePayTable baseGamePayTable = new BaseGamePayTable();
         sut = new SlotScoreCalculator(
                 new Reels(
-                        baseGameRawReels, randomNumberGenerator), new BaseGamePayTable(),
-                new Reels(
                         freeGameRawReels, randomNumberGenerator
-                ), new FreeGamePayTable()
+                ), new FreeGamePayTable(), new GameFlow(baseGameReels, baseGamePayTable)
         );
     }
 
