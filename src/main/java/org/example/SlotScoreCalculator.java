@@ -8,6 +8,7 @@ public class SlotScoreCalculator {
     private final PayTable baseGamePayTable;
     private final Reels freeGameReels;
     private final PayTable freeGamePayTable;
+    private final GameFlow gameFlow;
     private int freeGameCount;
     private int freeGameBet;
 
@@ -16,6 +17,7 @@ public class SlotScoreCalculator {
         this.baseGamePayTable = baseGamePayTable;
         this.freeGameReels = freeGameReels;
         this.freeGamePayTable = freeGamePayTable;
+        gameFlow = new GameFlow();
     }
 
     public SpinResult spinBase(int bet) throws WrongMethodException {
@@ -24,7 +26,7 @@ public class SlotScoreCalculator {
             throw new WrongMethodException("wrong mode:FREE_GAME");
         }
 
-        SpinResult result = runGameFlow(bet, baseGameReels, baseGamePayTable);
+        SpinResult result = gameFlow.runGameFlow(bet, baseGameReels, baseGamePayTable);
 
         tryTriggerFreeGame(result.getScreen(), bet);
 
@@ -34,17 +36,9 @@ public class SlotScoreCalculator {
 
     private SpinResult runGameFlow(int bet, Reels reels, PayTable payTable) {
 
-        reels.spin();
-
-        Screen screen = reels.getScreen();
-
-        int odd = payTable.getOdd(screen);
-
-        int win = odd * bet;
-
-        return new SpinResult(win, screen);
+        return gameFlow.runGameFlow(bet, reels, payTable);
     }
-    
+
     
     private void tryTriggerFreeGame(Screen screen, int bet) {
         int count = 0;
@@ -80,7 +74,7 @@ public class SlotScoreCalculator {
         }
 
 
-        SpinResult spinResult = runGameFlow(freeGameBet, freeGameReels, freeGamePayTable);
+        SpinResult spinResult = gameFlow.runGameFlow(freeGameBet, freeGameReels, freeGamePayTable);
 
         tryDeactivateFreeGame();
 
