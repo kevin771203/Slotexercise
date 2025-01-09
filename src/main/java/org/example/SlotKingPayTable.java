@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.*;
 
-public class BaseGamePayTable implements PayTable {
+public class SlotKingPayTable implements PayTable {
     private final Map<Integer, Integer> odds = Map.ofEntries(
             new AbstractMap.SimpleEntry<Integer, Integer>(0, 0),
             new AbstractMap.SimpleEntry<Integer, Integer>(1, 10),

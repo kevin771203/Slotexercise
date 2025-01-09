@@ -1,6 +1,6 @@
 package org.example;
 
-public class FreeGamePayTable implements PayTable{
+public class MasterPiecePayTable implements PayTable{
 
     public int getOdd(Screen screen) {
         int odd = 0;
