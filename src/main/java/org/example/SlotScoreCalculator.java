@@ -14,10 +14,10 @@ public class SlotScoreCalculator {
         this.freeGameFlow = freeGameFlow;
     }
 
-    public SpinResult spinBase(int bet) throws WrongMethodException {
+    public SpinResult spinBase(int bet) throws WrongModeException {
 
         if (freeGameCount > 0) {
-            throw new WrongMethodException("wrong mode:FREE_GAME");
+            throw new WrongModeException("wrong mode:FREE_GAME");
         }
 
         SpinResult result = baseGameFlow.runGameFlow(bet);
@@ -56,10 +56,10 @@ public class SlotScoreCalculator {
 
 
 
-    public SpinResult spinFree() throws WrongMethodException {
+    public SpinResult spinFree() throws WrongModeException {
 
         if (freeGameCount <= 0) {
-            throw new WrongMethodException("wrong mode:BASE_GAME");
+            throw new WrongModeException("wrong mode:BASE_GAME");
         }
 
 
@@ -73,6 +73,10 @@ public class SlotScoreCalculator {
 
     private void tryDeactivateFreeGame() {
         freeGameCount--;
+    }
+
+    public boolean isFreeGame() {
+        return freeGameCount > 0;
     }
 
 }

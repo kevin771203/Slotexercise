@@ -18,6 +18,7 @@ public class DafuAllStarPayTable implements PayTable {
             }else {
 
                 break;
+
             }
             
         }

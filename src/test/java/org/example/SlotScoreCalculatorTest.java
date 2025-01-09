@@ -12,7 +12,7 @@ class SlotScoreCalculatorTest {
 
 
     @Test
-    void back_to_base_game() throws WrongMethodException {
+    void back_to_base_game() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -42,7 +42,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void free_game_3_times() throws WrongMethodException {
+    void free_game_3_times() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -77,7 +77,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void cannot_play_base_game_in_free_game_mode() throws WrongMethodException {
+    void cannot_play_base_game_in_free_game_mode() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -104,7 +104,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void get_screen_in_free_game() throws WrongMethodException {
+    void get_screen_in_free_game() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -136,7 +136,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void free_game_1_lines() throws WrongMethodException {
+    void free_game_1_lines() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -169,7 +169,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void free_game_2_lines() throws WrongMethodException {
+    void free_game_2_lines() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -201,7 +201,7 @@ class SlotScoreCalculatorTest {
 
     }
     @Test
-    void free_game_3_lines() throws WrongMethodException {
+    void free_game_3_lines() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -233,13 +233,13 @@ class SlotScoreCalculatorTest {
 
     }
 
-    private void when_spin_free() throws WrongMethodException {
+    private void when_spin_free() throws WrongModeException {
         spinResult = sut.spinFree();
     }
 
 
     @Test
-    void three_lines() throws WrongMethodException {
+    void three_lines() throws WrongModeException {
 
 
         assume_RNG_generates(List.of(0));
@@ -294,7 +294,7 @@ class SlotScoreCalculatorTest {
         );
     }
 
-    private void when_spin_base(int bet) throws WrongMethodException {
+    private void when_spin_base(int bet) throws WrongModeException {
         spinResult = sut.spinBase(bet);
     }
 
@@ -309,7 +309,7 @@ class SlotScoreCalculatorTest {
 
 
     @Test
-    void two_lines() throws WrongMethodException {
+    void two_lines() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -337,7 +337,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void one_line() throws WrongMethodException {
+    void one_line() throws WrongModeException {
 
         assume_RNG_generates(List.of(0));
 
@@ -365,7 +365,7 @@ class SlotScoreCalculatorTest {
     }
 
     @Test
-    void spin_and_lose() throws WrongMethodException {
+    void spin_and_lose() throws WrongModeException {
 
         assume_RNG_generates(List.of(1, 1, 1, 1, 2));
 
