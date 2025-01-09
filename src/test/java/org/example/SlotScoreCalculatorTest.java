@@ -102,6 +102,53 @@ class SlotScoreCalculatorTest {
         ).hasMessageContaining("wrong mode:FREE_GAME");
 
     }
+    @Test
+    void recovery_in_free_game() throws WrongModeException {
+
+        assume_RNG_generates(List.of(0, 0, 0, 0, 0, 1, 1, 1));
+
+        given_sut(
+                List.of(
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "4")
+                ), List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "3", "4")
+                ));
+
+
+        when_spin_base(10);
+        when_spin_free();
+        Memento memento = sut.toMemento();
+
+        given_sut(
+                List.of(
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "3"),
+                        List.of("A", "A", "4")
+                ), List.of(
+                        List.of("A", "2", "3"),
+                        List.of("A", "2", "3"),
+                        List.of("A", "3", "4")
+                ));
+
+        sut.restore(memento);
+
+        when_get_screen_then_should_get(
+                List.of(
+                        List.of("2", "3", "A"),
+                        List.of("2", "3", "A"),
+                        List.of("3", "4", "A")
+                )
+        );
+
+    }
 
     @Test
     void get_screen_in_free_game() throws WrongModeException {

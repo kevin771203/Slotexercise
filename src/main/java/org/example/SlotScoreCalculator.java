@@ -79,19 +79,18 @@ public class SlotScoreCalculator {
 
     public Memento toMemento() {
 
-        List<Integer> baseGamePositions = baseGameFlow.getPositions();
         return new Memento(
-                baseGamePositions,
-                null,
+                baseGameFlow.getPositions(),
+                freeGameFlow.getPositions(),
                 freeGameCount
         );
     }
 
     public void restore(Memento memento) {
 
-        List<Integer> baseGamePositions = memento.getBaseGamePositions();
-
-        baseGameFlow.restore(baseGamePositions);
+        baseGameFlow.restore(memento.getBaseGamePositions());
+        freeGameFlow.restore(memento.getFreeGamePositions());
+        freeGameCount = memento.getFreeGameCount();
 
     }
 }
