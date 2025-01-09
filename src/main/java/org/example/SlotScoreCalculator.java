@@ -20,11 +20,19 @@ public class SlotScoreCalculator {
 
     public SpinResult spinBase(int bet) throws WrongMethodException {
 
-
         if (freeGameCount > 0) {
             throw new WrongMethodException("wrong mode:FREE_GAME");
         }
 
+        SpinResult result = runGameFlow(bet);
+
+        tryTriggerFreeGame(result.getScreen(), bet);
+
+        return result;
+    }
+
+
+    private SpinResult runGameFlow(int bet) {
         baseGameReels.spin();
 
         Screen screen = baseGameReels.getScreen();
@@ -33,10 +41,9 @@ public class SlotScoreCalculator {
 
         int win = odd * bet;
 
-        tryTriggerFreeGame(screen, bet);
-
-        return new SpinResult(win,screen);
+        return new SpinResult(win, screen);
     }
+
 
     private void tryTriggerFreeGame(Screen screen, int bet) {
         int count = 0;
@@ -65,8 +72,7 @@ public class SlotScoreCalculator {
     }
 
 
-
-    public SpinResult spinFree() throws WrongMethodException {
+    public org.example.SpinResult spinFree() throws WrongMethodException {
 
         if (freeGameCount <= 0) {
             throw new WrongMethodException("wrong mode:BASE_GAME");
@@ -78,20 +84,16 @@ public class SlotScoreCalculator {
 
         int odd = freeGamePayTable.getOdd(screen);
 
-
         int win = odd * freeGameBet;
 
-        tryDeactiveFreeGame();
+        tryDeactivateFreeGame();
 
-        return new SpinResult(win,screen);
+        return new org.example.SpinResult(win,screen);
 
     }
 
-    private void tryDeactiveFreeGame() {
+    private void tryDeactivateFreeGame() {
         freeGameCount--;
     }
 
-//    private int getOddFreeGame(Screen screen) {
-//        return freeGamePayTable.getOddFreeGame(screen);
-//    }
 }
