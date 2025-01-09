@@ -34,13 +34,6 @@ public class SlotScoreCalculator {
 
         return result;
     }
-
-
-    private SpinResult runGameFlow(int bet, Reels reels, PayTable payTable) {
-
-        return baseGameFlow.runGameFlow(bet);
-    }
-
     
     private void tryTriggerFreeGame(Screen screen, int bet) {
         int count = 0;
@@ -61,12 +54,14 @@ public class SlotScoreCalculator {
 
     public Screen getScreen() {
         if (freeGameCount <= 0) {
-            return baseGameReels.getScreen();
+            return baseGameFlow.getScreen();
         } else {
-            return freeGameReels.getScreen();
+            return freeGameFlow.getScreen();
         }
 
     }
+
+
 
 
     public SpinResult spinFree() throws WrongMethodException {
