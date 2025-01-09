@@ -80,18 +80,13 @@ public class SlotScoreCalculator {
         if (freeGameCount <= 0) {
             throw new WrongMethodException("wrong mode:BASE_GAME");
         }
+        
 
-        freeGameReels.spin();
-
-        Screen screen = freeGameReels.getScreen();
-
-        int odd = freeGamePayTable.getOdd(screen);
-
-        int win = odd * freeGameBet;
+        SpinResult spinResult = runGameFlow(freeGameBet, freeGameReels, freeGamePayTable);
 
         tryDeactivateFreeGame();
 
-        return new SpinResult(win,screen);
+        return spinResult;
 
     }
 
