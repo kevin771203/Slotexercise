@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.List;
-
 public class SlotScoreCalculator {
 
     private final GameFlow baseGameFlow;
@@ -28,30 +26,12 @@ public class SlotScoreCalculator {
     }
     
     private void tryTriggerFreeGame(Screen screen, int bet) {
-        boolean shouldTriggerFreeGame = checkTriggeringRules(screen);
+        boolean shouldTriggerFreeGame = FreeGameTriggeringRules.checkTriggeringRules(screen);
 
         if (shouldTriggerFreeGame) {
-            freeGameCount += getFreeGameCount();
+            freeGameCount += FreeGameTriggeringRules.getFreeGameCount();
             freeGameBet = bet;
         }
-    }
-
-    private static int getFreeGameCount() {
-        return 3;
-    }
-
-    private static boolean checkTriggeringRules(Screen screen) {
-        int count = 0;
-        for (List<String> rawColumns : screen.rawScreen()) {
-            for (String grid : rawColumns) {
-                if(grid.equals("A")) {
-                    count++;
-                }
-            }
-        }
-
-        boolean shouldTriggerFreeGame = count >= 10;
-        return shouldTriggerFreeGame;
     }
 
 
