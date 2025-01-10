@@ -28,6 +28,19 @@ public class SlotScoreCalculator {
     }
     
     private void tryTriggerFreeGame(Screen screen, int bet) {
+        boolean shouldTriggerFreeGame = checkTriggeringRules(screen);
+
+        if (shouldTriggerFreeGame) {
+            freeGameCount += getFreeGameCount();
+            freeGameBet = bet;
+        }
+    }
+
+    private static int getFreeGameCount() {
+        return 3;
+    }
+
+    private static boolean checkTriggeringRules(Screen screen) {
         int count = 0;
         for (List<String> rawColumns : screen.rawScreen()) {
             for (String grid : rawColumns) {
@@ -37,10 +50,8 @@ public class SlotScoreCalculator {
             }
         }
 
-        if (count >= 10) {
-            freeGameCount += 3;
-            freeGameBet = bet;
-        }
+        boolean shouldTriggerFreeGame = count >= 10;
+        return shouldTriggerFreeGame;
     }
 
 
