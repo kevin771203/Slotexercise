@@ -1,6 +1,5 @@
 package org.example;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -29,7 +28,7 @@ class SlotScoreCalculatorSimulatorTest {
                                 List.of("A", "2", "3", "A", "A", "A", "A"),
                                 List.of("A", "3", "4", "A", "A", "A", "A")
                         ), randomNumberGenerator
-                ), new MasterPiecePayTable())
+                ), new MasterPiecePayTable()), new FreeGameTriggeringRules()
 
         );
 

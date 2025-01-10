@@ -6,10 +6,11 @@ public class SlotScoreCalculator {
     private final GameFlow freeGameFlow;
     private int freeGameCount;
     private int freeGameBet;
-
-    public SlotScoreCalculator(GameFlow baseGameFlow, GameFlow freeGameFlow) {
+    private final FreeGameTriggeringRules freeGameTriggeringRules;
+    public SlotScoreCalculator(GameFlow baseGameFlow, GameFlow freeGameFlow, FreeGameTriggeringRules freeGameTriggeringRules) {
         this.baseGameFlow = baseGameFlow;
         this.freeGameFlow = freeGameFlow;
+        this.freeGameTriggeringRules = freeGameTriggeringRules;
     }
 
     public SpinResult spinBase(int bet) throws WrongModeException {
@@ -26,10 +27,10 @@ public class SlotScoreCalculator {
     }
     
     private void tryTriggerFreeGame(Screen screen, int bet) {
-        boolean shouldTriggerFreeGame = FreeGameTriggeringRules.checkTriggeringRules(screen);
+        boolean shouldTriggerFreeGame = freeGameTriggeringRules.checkTriggeringRules(screen);
 
         if (shouldTriggerFreeGame) {
-            freeGameCount += FreeGameTriggeringRules.getFreeGameCount();
+            freeGameCount += freeGameTriggeringRules.getFreeGameCount();
             freeGameBet = bet;
         }
     }

@@ -337,7 +337,7 @@ class SlotScoreCalculatorTest {
         );
         final MasterPiecePayTable masterPiecePayTable = new MasterPiecePayTable();
         sut = new SlotScoreCalculator(
-                new GameFlow(baseGameReels, slotKingPayTable), new GameFlow(freeGameReels, masterPiecePayTable)
+                new GameFlow(baseGameReels, slotKingPayTable), new GameFlow(freeGameReels, masterPiecePayTable), new FreeGameTriggeringRules()
         );
     }
 
