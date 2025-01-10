@@ -7,6 +7,7 @@ public class SlotScoreCalculator {
     private int freeGameCount;
     private int freeGameBet;
     private final FreeGameTriggeringRules freeGameTriggeringRules;
+
     public SlotScoreCalculator(GameFlow baseGameFlow, GameFlow freeGameFlow, FreeGameTriggeringRules freeGameTriggeringRules) {
         this.baseGameFlow = baseGameFlow;
         this.freeGameFlow = freeGameFlow;
@@ -27,10 +28,10 @@ public class SlotScoreCalculator {
     }
     
     private void tryTriggerFreeGame(Screen screen, int bet) {
-        boolean shouldTriggerFreeGame = freeGameTriggeringRules.checkTriggeringRules(screen);
+        boolean shouldTriggerFreeGame = freeGameTriggeringRules.check(screen);
 
         if (shouldTriggerFreeGame) {
-            freeGameCount += freeGameTriggeringRules.getFreeGameCount();
+            freeGameCount += freeGameTriggeringRules.getCount();
             freeGameBet = bet;
         }
     }

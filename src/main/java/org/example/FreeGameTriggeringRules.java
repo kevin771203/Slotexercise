@@ -1,22 +1,9 @@
 package org.example;
 
-import java.util.List;
 
-public class FreeGameTriggeringRules {
-    public static int getFreeGameCount() {
-        return 3;
-    }
+public interface FreeGameTriggeringRules {
 
-    public static boolean checkTriggeringRules(Screen screen) {
-        int count = 0;
-        for (List<String> rawColumns : screen.rawScreen()) {
-            for (String grid : rawColumns) {
-                if (grid.equals("A")) {
-                    count++;
-                }
-            }
-        }
+    int getCount();
 
-        return count >= 10;
-    }
+    boolean check(Screen screen);
 }
